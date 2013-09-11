@@ -1,0 +1,31 @@
+#Executa se o módulo estiver carregado no servidor
+<IfModule mod_rewrite.c>
+
+#Habilita o Módulo de Reescrita
+RewriteEngine On
+
+#Se a URL apontar para um arquivo, vai diretamente para ele
+#RewriteCond %{REQUEST_FILENAME} !-f
+
+#Se a URL apontar para uma pasta, vai diretamente para ela
+#RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(home)[/]*$ index.php?arquivo=$1
+
+RewriteRule ^(links)[/]+([\w-_]+)[/]*$ index.php?arquivo=pagina_primeiro_nivel&link=$2
+
+RewriteRule ^(cidade|governo|secretarias|servicos|noticias|empresas|investidos|turismo|servidor|orgaos|contato)[/]+([\w-_]+)[/]*$ index.php?arquivo=pagina_padrao&link=$2
+
+#RewriteRule ^produtos[/]*$ index.php?arquivo=produtos
+#RewriteRule ^produtos[/]+(pagina|paginacao)[/]+(\d+)[/]+(pagina|paginacao)[/]+(\d+)[/]*[^/]*$ index.php?arquivo=produtos&$1=$2&$3=$4
+
+#RewriteRule ^produtos[/]+(letra|numero|nome)[/]+([^/]+)[/]*[^/]*$ index.php?arquivo=produtos&$1=$2
+#RewriteRule ^produtos[/]+(letra|numero|nome)[/]+([^/]+)[/]+(pagina|paginacao)[/]+(\d+)[/]+(pagina|paginacao)[/]+(\d+)[/]*[^/]*$ index.php?arquivo=produtos&$1=$2&$3=$4&$5=$6
+
+#RewriteRule ^produtos[/]+categoria[/]+(\d+)[/]*[^/]*$ index.php?arquivo=produtos&id_categoria=$1
+RewriteRule ^produtos[/]+categoria[/]+(\d+)[/]+(pagina|paginacao)[/]+(\d+)[/]+(pagina|paginacao)[/]+(\d+)[/]*[^/]*$ index.php?arquivo=produtos&id_categoria=$1&$2=$3&$4=$5
+
+#RewriteRule ^produtos[/]+categoria[/]+(\d+)[/]+(letra|numero|nome)[/]+([^/]+)[/]*[^/]*$ index.php?arquivo=produtos&id_categoria=$1&$2=$3
+#RewriteRule ^produtos[/]+categoria[/]+(\d+)[/]+(letra|numero|nome)[/]+([^/]+)[/]+(pagina|paginacao)[/]+(\d+)[/]+(pagina|paginacao)[/]+(\d+)[/]*[^/]*$ index.php?arquivo=produtos&id_categoria=$1&$2=$3&$4=$5&$6=$7
+
+</IfModule>

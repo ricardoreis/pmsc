@@ -1,0 +1,29 @@
+#Executa se o módulo estiver carregado no servidor
+
+#Habilita o Módulo de Reescrita
+RewriteEngine On
+
+#Se a URL apontar para um arquivo, vai diretamente para ele
+RewriteCond %{REQUEST_FILENAME} !-f
+
+#Se a URL apontar para uma pasta, vai diretamente para ela
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(home|login|logout)[/]*$ index.php?arquivo=$1&friendly_url=true
+
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]*$ index.php?arquivo=$1
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+busca[/]*$ index.php?arquivo=$1
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+busca[/]*([^/]*)[/]*$ index.php?arquivo=$1&s=$2
+
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+busca[/]*([^/]*)[/]+order[\-\_]*by[/]+([^/]+)[/]+(asc|desc)[/]*$ index.php?arquivo=$1&s=$2&order_by=$3&order_by_order=$4
+
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+busca[/]*([^/]*)[/]+order[\-\_]*by[/]+([^/]+)[/]+(asc|desc)[/]+(pagina|paginacao)[/]+(\d+)[/]*$ index.php?arquivo=$1&s=$2&order_by=$3&order_by_order=$4&$5=$6
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+busca[/]*([^/]*)[/]+order[\-\_]*by[/]+([^/]+)[/]+(asc|desc)[/]+(pagina|paginacao)[/]+(\d+)[/]+excluir[/]+(\d+)[/]*$ index.php?arquivo=$1&s=$2&order_by=$3&order_by_order=$4&$5=$6&excluir=$7
+
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+busca[/]*([^/]*)[/]+order[\-\_]*by[/]+([^/]+)[/]+(asc|desc)[/]+paginacao[/]+(\d+)[/]+pagina[/]+(\d+)[/]*$ index.php?arquivo=$1&s=$2&order_by=$3&order_by_order=$4&paginacao=$5&pagina=$6
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+busca[/]*([^/]*)[/]+order[\-\_]*by[/]+([^/]+)[/]+(asc|desc)[/]+paginacao[/]+(\d+)[/]+pagina[/]+(\d+)[/]+excluir[/]+(\d+)[/]*$ index.php?arquivo=$1&s=$2&order_by=$3&order_by_order=$4&paginacao=$5&pagina=$6&excluir=$7
+
+
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+(add|edit)[/]*$ index.php?arquivo=$1&acao=$2
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+(\d+)[/]+(edit)[/]*$ index.php?arquivo=$1&acao=$3&id=$2
+RewriteRule ^(submenus|paginas|noticias|secretarias|categorias)[/]+(\d+)[/]+(print)[/]*$ $1_$3.php?id=$2
